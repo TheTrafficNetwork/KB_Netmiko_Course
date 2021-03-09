@@ -1,2 +1,4 @@
 # KB_Netmiko_Course
-Kirk Byers Netmiko by Example 2021
+Netmiko by Example Course
+Instructor: Kirk Byers
+March 2021
