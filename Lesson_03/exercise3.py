@@ -20,6 +20,6 @@ my_device = {
 
 with ConnectHandler(**my_device) as net_connect:
     output = net_connect.send_command(
-        "show run", use_ttp=True, ttp_template="show_run_intf.ttp"
+        "show vlan", use_ttp=True, ttp_template="show_vlan.ttp"
     )
     pprint(output)
