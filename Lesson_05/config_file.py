@@ -17,9 +17,7 @@ if __name__ == "__main__":
     # Code so automated tests will run properly
     # Check for environment variable, if that fails, use getpass().
     password = (
-        os.getenv("NETMIKO_PASSWORD")
-        if os.getenv("NETMIKO_PASSWORD")
-        else getpass()
+        os.getenv("NETMIKO_PASSWORD") if os.getenv("NETMIKO_PASSWORD") else getpass()
     )
 
     device_dict = load_devices()
@@ -29,12 +27,11 @@ if __name__ == "__main__":
     arista3 = device_dict["arista3"]
     arista4 = device_dict["arista4"]
 
-    cfg_changes = ["vlan 674", "name gold674"]
-
     for device in (arista1, arista2, arista3, arista4):
         device["password"] = password
-        with ConnectHandler(**device) as net_connect:
-            output = net_connect.send_config_set(cfg_changes)
-            output += net_connect.save_config()
-            print(f"\n{output}\n\n")
+        net_connect = ConnectHandler(**device)
+        output = net_connect.send_config_from_file("vlans.txt")
+        output += net_connect.save_config()
+        print(f"\n{output}\n\n")
+        net_connect.disconnect()
         time.sleep(2)

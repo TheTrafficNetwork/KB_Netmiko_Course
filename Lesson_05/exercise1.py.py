@@ -24,17 +24,19 @@ if __name__ == "__main__":
 
     device_dict = load_devices()
 
-    arista1 = device_dict["arista1"]
-    arista2 = device_dict["arista2"]
-    arista3 = device_dict["arista3"]
-    arista4 = device_dict["arista4"]
+    nxos1 = device_dict["nxos1"]
+    nxos2 = device_dict["nxos2"]
 
-    cfg_changes = ["vlan 674", "name gold674"]
+    cfg_changes = ["ip domain-lookup", "ip domain-name bogus.com"]
 
-    for device in (arista1, arista2, arista3, arista4):
+    for device in (
+        nxos1,
+        nxos2,
+    ):
         device["password"] = password
+        device["fast_cli"] = False
         with ConnectHandler(**device) as net_connect:
             output = net_connect.send_config_set(cfg_changes)
             output += net_connect.save_config()
+            time.sleep(20)
             print(f"\n{output}\n\n")
-        time.sleep(2)

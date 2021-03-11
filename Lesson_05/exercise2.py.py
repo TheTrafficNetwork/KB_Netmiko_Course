@@ -24,17 +24,17 @@ if __name__ == "__main__":
 
     device_dict = load_devices()
 
-    arista1 = device_dict["arista1"]
-    arista2 = device_dict["arista2"]
-    arista3 = device_dict["arista3"]
-    arista4 = device_dict["arista4"]
+    nxos1 = device_dict["nxos1"]
+    nxos2 = device_dict["nxos2"]
 
-    cfg_changes = ["vlan 674", "name gold674"]
-
-    for device in (arista1, arista2, arista3, arista4):
+    for device in (
+        nxos1,
+        nxos2,
+    ):
         device["password"] = password
-        with ConnectHandler(**device) as net_connect:
-            output = net_connect.send_config_set(cfg_changes)
-            output += net_connect.save_config()
-            print(f"\n{output}\n\n")
-        time.sleep(2)
+        net_connect = ConnectHandler(**device)
+        output = net_connect.send_config_from_file("exercise2.txt")
+        output += net_connect.save_config()
+        time.sleep(10)
+        print(f"\n{output}\n\n")
+        net_connect.disconnect()
