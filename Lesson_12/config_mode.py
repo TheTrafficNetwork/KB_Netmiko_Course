@@ -3,7 +3,11 @@ from getpass import getpass
 from netmiko import ConnectHandler
 
 # Code so automated tests will run properly
-password = os.getenv("NETMIKO_PASSWORD") if os.getenv("NETMIKO_PASSWORD") else getpass()
+password = (
+    os.getenv("NETMIKO_PASSWORD")
+    if os.getenv("NETMIKO_PASSWORD")
+    else getpass()
+)
 
 
 if __name__ == "__main__":
