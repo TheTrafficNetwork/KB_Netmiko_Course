@@ -42,7 +42,8 @@ if __name__ == "__main__":
         # Drop to privilege level1
         lower_privileges(net_connect)
 
-        # Use 'enable()' method to raise privileges. This will automatically handle the password
+        # Use 'enable()' method to raise privileges.
+        # This will automatically handle the password
         # must have 'secret' argument set in the device dictionary.
         net_connect.enable()
         print("*" * 40)
